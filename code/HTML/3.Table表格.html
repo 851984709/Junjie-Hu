@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<meta charset = "UTF-8">
+		<title>创建表格</title>
+	</head>
+
+	<body>
+		<table border="1px" align="center">
+		<!-- 边界像素1px，居中 -->
+			<thead>
+				<tr>
+					<th>用户名</th><!-- 居中，加粗 -->
+					<th>性别</th>
+					<th>密码</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><!-- 行 -->
+					<td>Admin</td><!-- 列 -->
+					<td>男</td>
+					<td>123</td>
+				</tr>
+				<tr>
+					<td>胡俊杰</td>
+					<td>男</td>
+					<td>233333</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td>用户名</td><!-- 居中，加粗 -->
+					<td>性别</td>
+					<td>密码</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		<table border="1px">
+			<tr>
+				<th>aaaa</th>
+				<th>aaaa</th>
+				<th>aaaa</th>
+				<th>aaaa</th>
+			</tr>
+			<tr>
+				<td rowspan="2">aaaa</td><!-- 合并列单元格 -->
+				<td colspan="2">aaaa</td><!-- 合并行单元格 -->
+				<td>aaaa</td>
+			</tr>
+			<tr>
+				<td>aaaa</td>
+				<td>aaaa</td>
+				<td>aaaa</td>
+			</tr>
+		</table>
+	</body>
+</html>
