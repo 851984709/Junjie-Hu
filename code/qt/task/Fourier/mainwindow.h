@@ -13,7 +13,9 @@
 #include <QDebug>
 #include <QMessageBox>
 
-#include <dft2.h>
+#include "D:\code\Qt\MyCV\mycv.h"
+#include "D:\code\Qt\MyCV\mymath.h"
+#include "D:\code\Qt\MyCV\mycomplexnumber.h"
 
 class MainWindow : public QMainWindow
 {
@@ -32,9 +34,12 @@ public:
     QAction *saveAction;
     QAction *grayAction;
     QAction *fourierAction;
+    QAction *ifourierAction;
 
     QImage *image;
     QLabel *label;
+
+    MyComplexNumber *dft2_data;
 
 signals:
     void freshSignal();
@@ -44,6 +49,7 @@ private slots:
     void saveSlot();
     void graySlot();
     void fourierSlot();
+    void ifourierSlot();
     void freshSlot();
 };
 #endif // MAINWINDOW_H

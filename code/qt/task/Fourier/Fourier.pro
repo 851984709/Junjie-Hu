@@ -26,13 +26,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    complexnumber.cpp \
-    dft2.cpp
+    ../../../MyCV/mycomplexnumber.cpp \
+    ../../../MyCV/mycv.cpp \
+    ../../../MyCV/myimage.cpp \
+    ../../../MyCV/mykernel.cpp \
+    ../../../MyCV/mymat.cpp \
+    ../../../MyCV/mymat2.cpp \
+    ../../../MyCV/mymath.cpp \
+    ../../../MyCV/mymat3.cpp
 
 HEADERS += \
         mainwindow.h \
-    complexnumber.h \
-    dft2.h
+    ../../../MyCV/mycomplexnumber.h \
+    ../../../MyCV/mycv.h \
+    ../../../MyCV/myimage.h \
+    ../../../MyCV/mykernel.h \
+    ../../../MyCV/mymat.h \
+    ../../../MyCV/mymat2.h \
+    ../../../MyCV/mymath.h \
+    ../../../MyCV/mymat3.h
 
 DISTFILES += \
     kiana.jpg

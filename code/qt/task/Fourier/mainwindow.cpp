@@ -16,11 +16,13 @@ MainWindow::MainWindow(QWidget *parent)
     saveAction = fileMenu->addAction("Save");
     grayAction = editMenu->addAction("Gray");
     fourierAction = editMenu->addAction("Fourier");
+    ifourierAction = editMenu->addAction("iFourier");
 
     connect(openAction,SIGNAL(triggered()),this,SLOT(openSlot()));
     connect(saveAction,SIGNAL(triggered()),this,SLOT(saveSlot()));
     connect(grayAction,SIGNAL(triggered()),this,SLOT(graySlot()));
     connect(fourierAction,SIGNAL(triggered()),this,SLOT(fourierSlot()));
+    connect(ifourierAction,SIGNAL(triggered()),this,SLOT(ifourierSlot()));
     connect(this,SIGNAL(freshSignal()),this,SLOT(freshSlot()));
 }
 
@@ -44,39 +46,45 @@ void MainWindow::openSlot()
 
 void MainWindow::graySlot()
 {
-    if(image->format()==QImage::Format_Grayscale8)
-        return;
+    MyImage *scrimage = new MyImage(*image);
 
-    unsigned char *scrdata = image->bits();
-    int width = image->width();
-    int height = image->height();
-    int bytesPerLine = (width*8+31)/32*8;//图像每行字节对齐
-    unsigned char *dstdata = new unsigned char[bytesPerLine*height];//存储处理后的数据
+    MyImage *dstimage = MyCV::Gray(*scrimage);
 
-    for(int i=0;i<height;i++)
-        for(int j=0;j<width;j++)
-        {
-            // 灰度公式
-            int gray = (int)(scrdata[2] * 0.3 + scrdata[1] * 0.59 + scrdata[0] * 0.11);
-
-            dstdata[i*bytesPerLine+j]  = gray;
-
-            scrdata+=4;
-        }
-
-    image= new QImage(dstdata,width,height,bytesPerLine,QImage::Format_Grayscale8);
+    image = MyImage::MyImage2QImage(*dstimage);
 
     emit freshSignal();
 }
 
 void MainWindow::fourierSlot()
 {
-    Dft2 dft(*image);
+    MyImage *scrimage = new MyImage(*image);
 
-    image= dft.m_dst_image;
+    MyMat2 *mymat2 = MyImage::MyImage2MyMat2(*scrimage);
+
+    dft2_data = MyMath::Dft2(*mymat2);
+
+    MyImage *dstimage = MyCV::Dft22MyImage(dft2_data,
+                                           image->width(),
+                                           image->height());
+
+    image = MyImage::MyImage2QImage(*dstimage);
 
     emit freshSignal();
 }
+
+void MainWindow::ifourierSlot()
+{
+    MyMat2* dstmat2 = MyMath::Idft2(dft2_data,
+                                    image->width(),
+                                    image->height());
+
+    MyImage* dstimage = new MyImage(*dstmat2);
+
+    image = MyImage::MyImage2QImage(*dstimage);
+
+    emit freshSignal();
+}
+
 
 void MainWindow::freshSlot()
 {
